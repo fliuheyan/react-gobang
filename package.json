@@ -1,0 +1,24 @@
+{
+  "name": "react",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "compile-js": "browserify src/app.jsx --extension=.jsx  --extension=.es6 > public/app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "lodash": "^4.17.4",
+    "react": "^15.2.0",
+    "react-dom": "^15.2.0"
+  },
+  "devDependencies": {
+    "react-scripts": "0.4.1"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/react-scripts/config/eslint.js"
+  }
+}
