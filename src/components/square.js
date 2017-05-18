@@ -1,29 +1,23 @@
 import React from 'react'
 
 class Square extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      display: null
-    }
-  };
 
   getDisplay = (odd) => {
+    if(typeof(odd) == "undefined") return "";
     return !!odd ? "O" : "X";
   }
 
   handleClick = () => {
-    const odd = this.props.handler();
-    this.setState({display: this.getDisplay(odd)})
+    this.props.handler(this.props.x,this.props.y);
   };
 
   render() {
     return (
-      <button onClick={this.handleClick}>
-        {this.state.display}
+      <button className="button" onClick={this.handleClick}>
+        {this.getDisplay(this.props.odd)}
       </button>
     );
-  }
+  };
 }
 
 export default Square
