@@ -1,7 +1,7 @@
 import React from 'react'
-import ReactDOM from 'react-dom';
 import _ from 'lodash'
 import Square from './square'
+import Position from './position'
 import './board.css'
 
 class Board extends React.Component {
@@ -23,63 +23,14 @@ class Board extends React.Component {
 
   clickHandler = (x,y) => {
     var map = this.state.map;
-    if(typeof(map[x][y]) != "undefined") return;
+    const range = this.props.range;
+    if(typeof(map[x][y]) !== "undefined") return;
     const odd = !this.state.odd;
     map[x][y] = odd;
     this.setState({odd: odd, map: map});
-    this.checkSuccess(x,y);
-  };
-
-  checkSuccess = (x,y) => {
-    const that = this;
-    function Position(x,y){
-      this.x = x;
-      this.y = y;
-      this.move = (position,partial) => {
-        const step = partial || 1;
-        const horizon = this.x + position.x * step;
-        const vertical = this.y + position.y * step;
-        return [horizon,vertical]
-      };
-      this.isValid = (position,step) => {
-        const new_position = this.move(position,step);
-        const range = that.props.range;
-        return (0 < new_position[0] && new_position[0] < range) && (0 < new_position[1] && new_position[0] < range);
-      };
-      this.content = () => {
-        return that.state.map[this.x][this.y]
-      };
-      this.neighbour = (position,step) => {
-        if(!this.isValid(position,step)) return undefined
-        const new_position = this.move(position,step);
-        return that.state.map[new_position[0]][new_position[1]];
-      };
-    }
-    const directions = [
-      [new Position(-1,0),new Position(1,0)],
-      [new Position(0,1),new Position(0,-1)],
-      [new Position(-1,1),new Position(1,-1)],
-      [new Position(-1,-1),new Position(1,1)]
-    ];
-
-    function countSameContent(current,position) {
-      var count = 0;
-      debugger;
-      while(typeof(current.neighbour(position,count+1)) != "undefined" && current.content() === current.neighbour(position,count+1)){
-        debugger;
-        count++;
-      }
-      return count;
-    };
-
-    const current = new Position(x,y);
-    directions.forEach(tuple => {
-      debugger;
-      var count = countSameContent(current,tuple[0]) + countSameContent(current,tuple[1]);
-      if(count === 4) {
-        alert("your win");
-      }
-    });
+    const position = new Position(x,y,range);
+    console.log(position.isWin(map));
+    if(position.isWin(map)) alert("you win!!!")
   };
 
   getSquare = (x,y) => {

@@ -3,7 +3,7 @@ import React from 'react'
 class Square extends React.Component {
 
   getDisplay = (odd) => {
-    if(typeof(odd) == "undefined") return "";
+    if(typeof(odd) === "undefined") return "";
     return !!odd ? "O" : "X";
   }
 
