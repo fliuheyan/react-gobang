@@ -14,15 +14,22 @@ class Board extends React.Component {
   };
 
   create2dArray = (range) => {
-    var array = new Array(range);
+    const array = new Array(range);
     for(var i=0;i<range;i++) {
       array[i] = new Array(range);
     }
     return array;
   };
 
+  reset = () => {
+    const map = _.map(this.state.map, xlines => {
+      return _.map(xlines, content => {return undefined});
+    });
+    this.setState({odd: false, map: map});
+  }
+
   clickHandler = (x,y) => {
-    var map = this.state.map;
+    const map = this.state.map;
     const range = this.props.range;
     if(typeof(map[x][y]) !== "undefined") return;
     const odd = !this.state.odd;
@@ -43,6 +50,9 @@ class Board extends React.Component {
             {
               _.range(this.props.range).map(y => _.range(this.props.range).map(x => {return this.getSquare(x,y)}))
             }
+          </div>
+          <div>
+            <button className="reset" onClick={this.reset}>new game</button>
           </div>
         </div>
     );

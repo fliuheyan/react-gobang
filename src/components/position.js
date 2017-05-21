@@ -33,7 +33,6 @@ const Position = function Position(xx,yy,prange){
 
   const countSublings = (offset,map) =>{
     var count = 0;
-    debugger;
     for(var step = count+1;typeof(offset.content(step,map)) !== "undefined" && content(map) === offset.content(step,map);){
       count++;
       step++;
