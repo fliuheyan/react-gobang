@@ -29,7 +29,6 @@ class Board extends React.Component {
     map[x][y] = odd;
     this.setState({odd: odd, map: map});
     const position = new Position(x,y,range);
-    console.log(position.isWin(map));
     if(position.isWin(map)) alert("you win!!!")
   };
 
